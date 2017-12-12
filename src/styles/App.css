@@ -26,6 +26,9 @@ input:focus {
 .openList {
   display: none; }
 
+.fa {
+  cursor: pointer; }
+
 header {
   height: 12vh;
   background-color: #00c8c8;
@@ -43,11 +46,34 @@ header {
     display: inline-block;
     background-color: #faf8f6;
     color: #00c8c8;
-    padding: 0.7% 1%;
-    margin: 3vh 2%; }
-  header input[type="text"] {
-    background-color: #faf8f6;
-    border: none; }
+    padding: 0 1%;
+    margin: 12vh / 4 2%; }
+    header .searchForm input[type="text"] {
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      border-radius: 5px;
+      display: inline-block;
+      background-color: #faf8f6;
+      color: #faf8f6;
+      padding: 10px 8px;
+      width: 10em;
+      border: none;
+      border: none; }
+    header .searchForm input[type="submit"] {
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      border-radius: 5px;
+      display: inline-block;
+      background-color: #faf8f6;
+      color: #faf8f6;
+      padding: 10px 8px;
+      width: 10em;
+      border: none;
+      width: 4.5em;
+      margin-left: 5px;
+      cursor: pointer; }
   header .inputs {
     text-align: right; }
   header .checkboxShowDoneTasks {
@@ -99,7 +125,8 @@ aside {
     background-color: #25608c;
     padding-left: 10px; }
   aside li {
-    list-style-type: none; }
+    list-style-type: none;
+    user-select: none; }
   aside .addCategory input[type="text"] {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -108,8 +135,9 @@ aside {
     display: inline-block;
     background-color: #00c8c8;
     color: #faf8f6;
-    padding: 1.5vh 0.5em;
+    padding: 10px 8px;
     width: 10em;
+    border: none;
     border: none; }
   aside .addCategory input[type="submit"] {
     -webkit-border-radius: 5px;
@@ -119,22 +147,22 @@ aside {
     display: inline-block;
     background-color: #00c8c8;
     color: #faf8f6;
-    padding: 1.5vh 0.5em;
+    padding: 10px 8px;
     width: 10em;
     border: none;
     width: 4.5em;
-    margin-left: 5px; }
+    margin-left: 5px;
+    cursor: pointer; }
   aside li {
     background-color: #00c8c8; }
   aside .toDoItem .currentItem {
     border-bottom: 1px solid #faf8f6; }
-  aside .toDoItem .ul:last-child {
+  aside .toDoItem ul:last-child {
     border-bottom: none; }
   aside .toDoItem ul {
     padding: 0; }
   aside .toDoItem li {
     padding-left: 5%;
-    user-select: none;
     background-color: #00c8c8; }
   aside .toDoItem .category {
     display: flex;
@@ -178,8 +206,9 @@ main {
     display: inline-block;
     background-color: #25608c;
     color: #faf8f6;
-    padding: 1.5vh 0.5em;
+    padding: 10px 8px;
     width: 10em;
+    border: none;
     border: none; }
   main input[type="submit"] {
     -webkit-border-radius: 5px;
@@ -189,11 +218,12 @@ main {
     display: inline-block;
     background-color: #25608c;
     color: #faf8f6;
-    padding: 1.5vh 0.5em;
+    padding: 10px 8px;
     width: 10em;
     border: none;
     width: 4.5em;
-    margin-left: 5px; }
+    margin-left: 5px;
+    cursor: pointer; }
   main ul {
     padding: 0 9px 0 0;
     overflow-y: auto;
@@ -206,7 +236,8 @@ main {
     background-color: #25608c;
     padding-left: 10px; }
   main li {
-    list-style-type: none; }
+    list-style-type: none;
+    user-select: none; }
   main .taskItem {
     display: flex;
     flex-direction: row;
@@ -229,7 +260,7 @@ main {
     display: inline-block;
     background-color: #25608c;
     color: #faf8f6;
-    padding: 1.5vh 0.5em;
+    padding: 10px 8px;
     width: 10em;
     border: none; }
   main button:disabled {
@@ -240,7 +271,7 @@ main {
     display: inline-block;
     background-color: gray;
     color: #faf8f6;
-    padding: 1.5vh 0.5em;
+    padding: 10px 8px;
     width: 10em;
     border: none; }
 
@@ -259,8 +290,9 @@ main {
     display: inline-block;
     background-color: #25608c;
     color: #faf8f6;
-    padding: 1.5vh 0.5em;
+    padding: 10px 8px;
     width: 10em;
+    border: none;
     border: none; }
   .modalWindow input[type="submit"] {
     -webkit-border-radius: 5px;
@@ -270,11 +302,12 @@ main {
     display: inline-block;
     background-color: #25608c;
     color: #faf8f6;
-    padding: 1.5vh 0.5em;
+    padding: 10px 8px;
     width: 10em;
     border: none;
     width: 4.5em;
-    margin-left: 5px; }
+    margin-left: 5px;
+    cursor: pointer; }
   .modalWindow .windowContent {
     margin: 15% auto;
     padding: 0.1% 0;
@@ -284,6 +317,8 @@ main {
     height: 30%; }
   .modalWindow .windowContent > * {
     margin-top: 5vh; }
+  .modalWindow .closeWindow {
+    cursor: pointer; }
   .modalWindow p {
     user-select: none; }
   .modalWindow button {
@@ -294,7 +329,7 @@ main {
     display: inline-block;
     background-color: #25608c;
     color: #faf8f6;
-    padding: 1.5vh 0.5em;
+    padding: 10px 8px;
     width: 10em;
     border: none; }
 
@@ -317,7 +352,7 @@ main {
       display: inline-block;
       background-color: #25608c;
       color: #faf8f6;
-      padding: 1.5vh 0.5em;
+      padding: 10px 8px;
       width: 10em;
       border: none;
       margin-left: 5px;
@@ -330,7 +365,7 @@ main {
       display: inline-block;
       background-color: #00c8c8;
       color: #faf8f6;
-      padding: 1.5vh 0.5em;
+      padding: 10px 8px;
       width: 10em;
       border: none; }
     .editTask form textarea[name="description"] {

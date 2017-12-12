@@ -1,4 +1,4 @@
-import undoable, { distinctState } from 'redux-undo';
+import undoable from 'redux-undo';
 import uniqueKey from '../utils/uniqueKey';
 import { idToCategoty1 } from './listOfCategoriesToState';
 import { idToCategoty2 } from './listOfCategoriesToState';
