@@ -13,8 +13,8 @@ import PrimaryLayout from './containers/PrimaryLayout';
 
 const history = createHistory();
 const middleware = routerMiddleware(history)
-const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-const store = createStore(reducer, compose(applyMiddleware(middleware), reduxDevTools));
+// const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const store = createStore(reducer, applyMiddleware(middleware));
 store.dispatch(push('/'));
 
 ReactDOM.render(
