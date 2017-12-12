@@ -27,7 +27,7 @@
       text-align: center; }
       header .inputs .searchForm {
         width: 50%;
-        margin: 0 1%; }
+        margin: -1% 1%; }
       header .inputs .searchForm input {
         width: 80%; }
   aside, main, .editTask {

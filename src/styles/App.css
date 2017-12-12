@@ -47,7 +47,7 @@ header {
     background-color: #faf8f6;
     color: #00c8c8;
     padding: 0 1%;
-    margin: 12vh / 4 2%; }
+    margin: 2% 2%; }
     header .searchForm input[type="text"] {
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
