@@ -51,9 +51,10 @@ const listOfTasksToState = (state = initialState, action) => {
 			state.find(({ id }) => id === action.payload).done = !state.find(({ id }) => id === action.payload).done;
 			return [...state];
 		case 'EDIT_CURRENT_TASK':
-			state.find(({ id }) => id === action.taskId).name = action.payload;
-			state.find(({ id }) => id === action.taskId).description = action.description;
-			state.find(({ id }) => id === action.taskId).done = action.isDone;
+			const currentTask = state.find(({ id }) => id === action.taskId);
+			currentTask.name = action.payload;
+			currentTask.description = action.description;
+			currentTask.done = action.isDone;
 			return [...state];
 		case 'CHANGE_CATEGORY_OF_TASK':
 			state.find(({ id }) => id === action.taskId).parentId = action.payload;
@@ -62,6 +63,6 @@ const listOfTasksToState = (state = initialState, action) => {
 	}
 };
 const undoableTodos = undoable(listOfTasksToState, {
-	filter: distinctState()
+	filter: action => action.type === 'ADD_NEW_TASK'
 });
 export default undoableTodos;
