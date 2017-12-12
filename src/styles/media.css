@@ -1,0 +1,70 @@
+@media (max-height: 415px) and (max-width: 767px) {
+  header {
+    height: 15vh; }
+    header .nameOfServise {
+      margin: 3vh 0.5em; }
+  aside, main, .editTask {
+    width: 48%; }
+  body ul {
+    overflow-y: visible; }
+  .editTask form > * {
+    margin: 2% 0; }
+  .modalWindow .windowContent > * {
+    margin-top: 4%; } }
+
+@media (max-height: 767px) and (max-width: 415px) {
+  ul .hiddenItems {
+    display: none; }
+  header {
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    header .nameOfServise {
+      margin: 2vh 0; }
+    header .inputs {
+      width: 100%;
+      text-align: center; }
+      header .inputs .searchForm {
+        width: 50%;
+        margin: 0 1%; }
+      header .inputs .searchForm input {
+        width: 85%; }
+  aside, main, .editTask {
+    height: 100%;
+    width: 98%; }
+  body ul {
+    overflow-y: visible;
+    padding: 0; }
+  aside .openList {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    background-color: #00c8c8;
+    margin-top: 5%;
+    user-select: none; }
+  aside .openList > div {
+    flex-basis: 50%;
+    text-align: center; }
+  aside .openList p {
+    display: inline-block;
+    padding-right: 5%;
+    margin: 10px 0; }
+  main .openList {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    background-color: #25608c;
+    margin-top: 5%;
+    user-select: none; }
+  main .openList > div {
+    flex-basis: 50%;
+    text-align: center; }
+  main .openList p {
+    display: inline-block;
+    padding-right: 5%;
+    margin: 10px 0; }
+  main .undoRedo > * {
+    margin-left: 10%; }
+  .modalWindow .windowContent {
+    width: 80%; } }

@@ -1,0 +1,341 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
+body {
+  font-family: "Open", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #faf8f6;
+  color: #faf8f6; }
+
+.primaryLayout {
+  width: 100%; }
+
+a {
+  text-decoration: none;
+  color: #faf8f6; }
+
+.active {
+  color: black;
+  font-weight: bold; }
+
+.hidden {
+  display: none; }
+
+input:focus {
+  outline: none; }
+
+.openList {
+  display: none; }
+
+header {
+  height: 12vh;
+  background-color: #00c8c8;
+  width: 100%; }
+  header .nameOfServise {
+    float: left;
+    margin: 4vh 1em;
+    user-select: none;
+    cursor: pointer; }
+  header .searchForm {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #faf8f6;
+    color: #00c8c8;
+    padding: 0.7% 1%;
+    margin: 3vh 2%; }
+  header input[type="text"] {
+    background-color: #faf8f6;
+    border: none; }
+  header .inputs {
+    text-align: right; }
+  header .checkboxShowDoneTasks {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    border: 1px solid #faf8f6;
+    user-select: none;
+    padding: 0.6%; }
+
+.progressBar {
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  border-radius: 7px;
+  margin: 1%;
+  border: 1px solid #25608c; }
+  .progressBar .progressbar-progress {
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    border-radius: 7px;
+    background-color: #00c8c8 !important; }
+
+aside {
+  float: left;
+  width: 29.16667%;
+  height: 67vh;
+  padding: 1%; }
+  aside ::-webkit-input-placeholder {
+    color: #faf8f6; }
+  aside ::-moz-placeholder {
+    color: #faf8f6; }
+  aside :-moz-placeholder {
+    color: #faf8f6; }
+  aside :-ms-input-placeholder {
+    color: #faf8f6; }
+  aside ul {
+    padding: 0 9px 0 0;
+    overflow-y: auto;
+    height: 100%; }
+  aside ul::-webkit-scrollbar {
+    width: 12px; }
+  aside ul::-webkit-scrollbar-track {
+    background-color: #00c8c8; }
+  aside ul::-webkit-scrollbar-thumb {
+    background-color: #25608c;
+    padding-left: 10px; }
+  aside li {
+    list-style-type: none; }
+  aside .addCategory input[type="text"] {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #00c8c8;
+    color: #faf8f6;
+    padding: 1.5vh 0.5em;
+    width: 10em;
+    border: none; }
+  aside .addCategory input[type="submit"] {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #00c8c8;
+    color: #faf8f6;
+    padding: 1.5vh 0.5em;
+    width: 10em;
+    border: none;
+    width: 4.5em;
+    margin-left: 5px; }
+  aside li {
+    background-color: #00c8c8; }
+  aside .toDoItem .currentItem {
+    border-bottom: 1px solid #faf8f6; }
+  aside .toDoItem .ul:last-child {
+    border-bottom: none; }
+  aside .toDoItem ul {
+    padding: 0; }
+  aside .toDoItem li {
+    padding-left: 5%;
+    user-select: none;
+    background-color: #00c8c8; }
+  aside .toDoItem .category {
+    display: flex;
+    align-items: center;
+    padding: 1% 0; }
+  aside .toDoItem .nameAndEdit {
+    display: flex;
+    align-items: center;
+    margin-left: 1%;
+    flex: 3; }
+  aside .toDoItem .rightBtn {
+    flex: 1;
+    text-align: right; }
+  aside .toDoItem .rightBtn > *,
+  aside .toDoItem .nameAndEdit > * {
+    padding-right: 5px; }
+  aside .toDoItem .categoryButtons > div {
+    flex: 1; }
+  aside .toDoItem .category p {
+    display: inline-block;
+    margin: 3% 0; }
+
+main {
+  float: right;
+  width: 62.5%;
+  height: 63vh;
+  padding: 1%; }
+  main ::-webkit-input-placeholder {
+    color: #faf8f6; }
+  main ::-moz-placeholder {
+    color: #faf8f6; }
+  main :-moz-placeholder {
+    color: #faf8f6; }
+  main :-ms-input-placeholder {
+    color: #faf8f6; }
+  main input[type="text"] {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #25608c;
+    color: #faf8f6;
+    padding: 1.5vh 0.5em;
+    width: 10em;
+    border: none; }
+  main input[type="submit"] {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #25608c;
+    color: #faf8f6;
+    padding: 1.5vh 0.5em;
+    width: 10em;
+    border: none;
+    width: 4.5em;
+    margin-left: 5px; }
+  main ul {
+    padding: 0 9px 0 0;
+    overflow-y: auto;
+    height: 100%; }
+  main ul::-webkit-scrollbar {
+    width: 12px; }
+  main ul::-webkit-scrollbar-track {
+    background-color: #00c8c8; }
+  main ul::-webkit-scrollbar-thumb {
+    background-color: #25608c;
+    padding-left: 10px; }
+  main li {
+    list-style-type: none; }
+  main .taskItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #25608c;
+    border-bottom: 1px solid #faf8f6; }
+  main .taskItem > * {
+    flex: 1;
+    text-align: center; }
+  main .taskItem > p {
+    flex: 10;
+    text-align: left; }
+  main .undoRedo * {
+    margin: 0 0 5% 5%; }
+  main button {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #25608c;
+    color: #faf8f6;
+    padding: 1.5vh 0.5em;
+    width: 10em;
+    border: none; }
+  main button:disabled {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: gray;
+    color: #faf8f6;
+    padding: 1.5vh 0.5em;
+    width: 10em;
+    border: none; }
+
+.modalWindow {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0; }
+  .modalWindow input[type="text"] {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #25608c;
+    color: #faf8f6;
+    padding: 1.5vh 0.5em;
+    width: 10em;
+    border: none; }
+  .modalWindow input[type="submit"] {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #25608c;
+    color: #faf8f6;
+    padding: 1.5vh 0.5em;
+    width: 10em;
+    border: none;
+    width: 4.5em;
+    margin-left: 5px; }
+  .modalWindow .windowContent {
+    margin: 15% auto;
+    padding: 0.1% 0;
+    background-color: #00c8c8;
+    text-align: center;
+    width: 40%;
+    height: 30%; }
+  .modalWindow .windowContent > * {
+    margin-top: 5vh; }
+  .modalWindow p {
+    user-select: none; }
+  .modalWindow button {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: #25608c;
+    color: #faf8f6;
+    padding: 1.5vh 0.5em;
+    width: 10em;
+    border: none; }
+
+.editTask {
+  float: right;
+  width: 62.5%;
+  height: 70vh;
+  padding: 1%; }
+  .editTask form > * {
+    flex: 1; }
+  .editTask form {
+    height: 70vh;
+    display: flex;
+    flex-direction: column; }
+    .editTask form input[type="button"] {
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      border-radius: 5px;
+      display: inline-block;
+      background-color: #25608c;
+      color: #faf8f6;
+      padding: 1.5vh 0.5em;
+      width: 10em;
+      border: none;
+      margin-left: 5px;
+      float: right; }
+    .editTask form input[type="text"] {
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      -ms-border-radius: 5px;
+      border-radius: 5px;
+      display: inline-block;
+      background-color: #00c8c8;
+      color: #faf8f6;
+      padding: 1.5vh 0.5em;
+      width: 10em;
+      border: none; }
+    .editTask form textarea[name="description"] {
+      flex: 7; }
+    .editTask form input[type="checkbox"] {
+      margin: 3% 1% 3% 0; }
+    .editTask form label {
+      color: black; }

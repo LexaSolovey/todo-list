@@ -1,0 +1,293 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
+
+$primaryColor: #00c8c8;
+$backgroundColor: #faf8f6;
+$tasksColor: #25608c;
+$heightOfHeader: 12vh;
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+@mixin colorOfPlaceholder($color) {
+  ::-webkit-input-placeholder {
+    color: $color;
+  }
+  ::-moz-placeholder {
+    color: $color;
+  }
+  :-moz-placeholder {
+    color: $color;
+  }
+  :-ms-input-placeholder {
+    color: $color;
+  }
+}
+@mixin inputStyles($bckColor) {
+  @include border-radius(5px);
+  display: inline-block;
+  background-color: $bckColor;
+  color: $backgroundColor;
+  padding: 1.5vh 0.5em;
+  width: 10em;
+  border: none;
+}
+@mixin inputForm($bckColor) {
+  input[type="text"] {
+    @include inputStyles($bckColor);
+  }
+  input[type="submit"] {
+    @include inputStyles($bckColor);
+    width: 4.5em;
+    margin-left: 5px;
+  }
+}
+@mixin ulStyle ($bckColor){
+  ul {
+    padding: 0 9px 0 0;
+    overflow-y: auto;
+    height: 100%;
+  }
+  ul::-webkit-scrollbar {
+    width: 12px;
+  }
+  ul::-webkit-scrollbar-track {
+    background-color: $primaryColor;
+  }
+  ul::-webkit-scrollbar-thumb {
+    background-color: $tasksColor;
+    padding-left: 10px;
+  }
+  li {
+    list-style-type: none;
+  }
+}
+
+body {
+  font-family: "Open", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: $backgroundColor;
+  color: $backgroundColor;
+}
+.primaryLayout {
+  width: 100%;
+}
+a {
+  text-decoration: none;
+  color: $backgroundColor;
+}
+.active {
+  color: black;
+  font-weight: bold;
+}
+.hidden {
+  display: none;
+}
+input:focus {
+  outline: none;
+}
+.openList{
+  display: none;
+}
+
+header {
+  height: $heightOfHeader;
+  background-color: $primaryColor;
+  width: 100%;
+
+  .nameOfServise {
+    float: left;
+    margin: 4vh 1em;
+    user-select: none;
+    cursor: pointer;
+  }
+  .searchForm {
+    @include border-radius(5px);
+    display: inline-block;
+    background-color: $backgroundColor;
+    color: $primaryColor;
+    padding: 0.7% 1%;
+    margin: $heightOfHeader / 4 2%;
+  }
+  input[type="text"] {
+    background-color: $backgroundColor;
+    border: none;
+  }
+  .inputs {
+    text-align: right;
+  }
+  .checkboxShowDoneTasks {
+    @include border-radius(5px);
+    display: inline-block;
+    border: 1px solid $backgroundColor;
+    user-select: none;
+    padding: 0.6%;
+  }
+}
+.progressBar {
+  @include border-radius(7px);
+  margin: 1%;
+  border: 1px solid $tasksColor;
+  .progressbar-progress {
+    @include border-radius(7px);
+    background-color: $primaryColor !important;
+  }
+}
+
+aside {
+  @include colorOfPlaceholder($backgroundColor);
+  @include ulStyle ($primaryColor);
+  float: left;
+  width: 280px / 960px * 100%;
+  height: 67vh;
+  padding: 1%;
+  .addCategory {
+    @include inputForm($primaryColor);
+  }
+  li {
+    background-color: $primaryColor;
+  }
+  .toDoItem {
+    .currentItem {
+      border-bottom: 1px solid $backgroundColor;
+		}
+		.ul:last-child {
+      border-bottom: none;
+    }
+    ul {
+      padding: 0;
+    }
+    li {
+      padding-left: 5%;
+      user-select: none;
+      background-color: $primaryColor;
+		}
+    .category {
+      display: flex;
+      align-items: center;
+      padding: 1% 0;
+    }
+    .nameAndEdit {
+      display: flex;
+      align-items: center;
+      margin-left: 1%;
+      flex: 3;
+    }
+    .rightBtn {
+      flex: 1;
+      text-align: right;
+    }
+    .rightBtn > *,
+    .nameAndEdit > * {
+      padding-right: 5px;
+    }
+    .categoryButtons > div {
+      flex: 1;
+    }
+    .category p {
+      display: inline-block;
+      margin: 3% 0;
+    }
+  }
+}
+
+main {
+  @include colorOfPlaceholder($backgroundColor);
+  @include inputForm($tasksColor);
+  @include ulStyle ($tasksColor);
+  float: right;
+  width: 600px / 960px * 100%;
+  height: 63vh;
+  padding: 1%;
+
+  .taskItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: $tasksColor;
+    border-bottom: 1px solid $backgroundColor;
+  }
+  .taskItem > * {
+    flex: 1;
+    text-align: center;
+  }
+  .taskItem > p {
+    flex: 10;
+    text-align: left;
+  }
+  .undoRedo * {
+    margin: 0 0 5% 5%;
+  }
+  button {
+		@include inputStyles($tasksColor);
+  }
+  button:disabled {
+    @include inputStyles(gray);
+  }
+}
+
+.modalWindow {
+  @include inputForm($tasksColor);
+  width:100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  position:fixed;
+  top:0;
+  left:0;
+  .windowContent {
+    margin: 15% auto;
+    padding: 0.1% 0;
+    background-color: $primaryColor;
+    text-align: center;
+    width: 40%;
+    height: 30%;
+  }
+  .windowContent > * {
+    margin-top: 5vh;
+  }
+  p{
+    user-select: none;
+	}
+	button {
+    @include inputStyles($tasksColor);
+  }
+}
+
+.editTask{
+  float: right;
+  width: 600px / 960px * 100%;
+  height: 70vh;
+  padding: 1%;
+  form > * {
+    flex: 1;
+  }
+  form {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+
+    input[type="button"] {
+      @include inputStyles($tasksColor);
+      margin-left: 5px;
+      float: right;
+    }
+    input[type="text"] {
+      @include inputStyles($primaryColor);
+    }
+    textarea[name="description"] {  
+      flex: 7;
+    }
+    input[type="checkbox"] {
+      margin: 3% 1% 3% 0;
+    }
+    label {
+      color: black;
+    }
+  }
+}
+
+
+

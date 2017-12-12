@@ -1,0 +1,85 @@
+@mixin openList ($color) {
+  .openList{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    background-color: $color;
+    margin-top: 5%;
+    user-select: none;
+  }
+  .openList > div{
+    flex-basis: 50%;
+    text-align: center;
+  }
+  .openList p{
+    display: inline-block;
+		padding-right: 5%;
+		margin: 10px 0;
+  }
+}
+
+@media (max-height: 415px) and (max-width: 767px) {
+  header {
+    height: 15vh;
+    .nameOfServise {
+      margin: 3vh 0.5em;
+    }
+  }
+  aside, main, .editTask {
+    width: 48%;
+  }
+  body ul {
+    overflow-y: visible;
+  }
+  .editTask form > * {
+    margin: 2% 0;
+  }  
+  .modalWindow .windowContent > * {
+    margin-top: 4%;
+  }
+}
+@media (max-height: 767px) and (max-width: 415px) {
+  ul .hiddenItems {
+    display: none;
+  }
+  header {
+    height: 15vh;
+    display:  flex;
+    flex-direction: column;
+    align-items: center;
+    .nameOfServise {
+      margin: 2vh 0 ;
+    }
+    .inputs{
+      width: 100%;
+      text-align: center;
+      .searchForm {
+        width: 50%;
+        margin: 0 1%;
+      }
+      .searchForm input{
+        width: 85%;
+      }
+    }
+  }
+  aside, main, .editTask {
+    height: 100%;
+    width: 98%;
+  }
+  body ul {
+    overflow-y: visible;
+    padding: 0;
+  }
+  aside {
+    @include openList (#00c8c8)
+  }
+  main {
+		@include openList (#25608c);
+		.undoRedo > * {
+			margin-left: 10%;
+		}
+  }
+  .modalWindow .windowContent{
+    width: 80%;
+	}
+}
