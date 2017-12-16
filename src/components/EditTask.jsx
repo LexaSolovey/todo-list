@@ -2,57 +2,49 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 class EditTask extends Component {
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
+		const { currentTask } = props.location;
 		this.state = {
-			parentId: '',
-			taskName: '',
-			description: '',
-			taskIsDone: false,
+			parentId: currentTask.parentId,
+			taskName: currentTask.name,
+			description: currentTask.description,
+			taskIsDone: currentTask.done,
 			redirect: false,
 		};
-		this.taskIsDone = this.taskIsDone.bind(this);
-		this.handleTaskDescriptionChange = this.handleTaskDescriptionChange.bind(this);
-		this.handleTaskNameChange = this.handleTaskNameChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleCancel = this.handleCancel.bind(this);
+		this.cancel = this.cancel.bind(this);
 	}
 
-	handleSubmit() {
-		this.props.editTask(this.props.match.params.id, this.state.taskName, this.state.description, this.state.taskIsDone);
+	handleSubmit = () => {
+		const { taskName, description, taskIsDone } = this.state;
+		const { id } = this.props.match.params;
+		this.props.editTask(id, taskName, description, taskIsDone);
 		this.setState({redirect: true});
 	}
   
-	handleTaskDescriptionChange(event) {
+	handleTaskDescriptionChange = (event) => {
 		this.setState({description: event.target.value});
 	}
 
-	handleTaskNameChange(event) {
+	handleTaskNameChange = (event) => {
 		this.setState({taskName: event.target.value});
 	}
 
-	taskIsDone() {
-		this.setState({taskIsDone: !this.state.taskIsDone});
+	handleTaskDone = () => {
+		const { taskIsDone } = this.state;
+		this.setState({taskIsDone: !taskIsDone});
 	}
 
-	handleCancel() {
+	cancel() {
 		this.setState({redirect: true});
 	}
 
-	componentDidMount(){
-		const currentTask = this.props.tasks.find(({ id }) => id === this.props.match.params.id);
-		if(currentTask && this.state.parentId === '' && this.state.taskName === '') {
-			this.setState({ 
-				parentId: currentTask.parentId,
-				taskName: currentTask.name,
-				description: currentTask.description,
-				taskIsDone: currentTask.done
-			});
-		}
-	}
-
 	render() {
-		if(this.state.redirect) return <Redirect push to={`/category/${this.state.parentId}`} />; 
+		const { parentId, taskName, description, taskIsDone, redirect } = this.state;
+		if (redirect) {
+			return <Redirect push to={`/category/${parentId}`} />; 
+		}
+
 		return (
 			<section className="editTask">
 				<form onSubmit={this.handleSubmit}>
@@ -61,9 +53,9 @@ class EditTask extends Component {
 						<input type="button" value="Save Changes" onClick={this.handleSubmit} />
 					</div>
 					<div>
-						<input type="text" onChange={this.handleTaskNameChange} value={this.state.taskName} />
+						<input type="text" onChange={this.handleTaskNameChange} value={taskName} />
 						<div>
-							<input type="checkbox" id="complited" defaultChecked={this.state.taskIsDone} onChange={this.taskIsDone} />
+							<input type="checkbox" id="complited" defaultChecked={taskIsDone} onChange={this.handleTaskDone} />
 							<label htmlFor="complited">Done</label>
 						</div>
 					</div>
@@ -72,7 +64,7 @@ class EditTask extends Component {
 						placeholder="Description" 
 						cols="30" 
 						rows="10"
-						value={this.state.description}
+						value={description}
 						onChange={this.handleTaskDescriptionChange}
 					/>
 				</form>

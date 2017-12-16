@@ -28,8 +28,8 @@ class ModalWindow extends Component {
 	render() {
 		return (
 			<div className="modalWindow">
-				<div className="windowContent">
-					<p className="closeWindow" onClick={this.handleCloseModalWindow}>CLOSE</p>
+				<div className="modalWindowContent">
+					<p className="modalWindowClose" onClick={this.handleCloseModalWindow}>CLOSE</p>
 					<p>{this.props.type}</p>
 					<form onSubmit={this.handleSubmit}>
 						<input 

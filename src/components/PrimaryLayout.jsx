@@ -3,12 +3,12 @@ import { Route, Switch } from 'react-router-dom';
 import { push } from "react-router-redux";
 import { connect } from "react-redux";
 
-import Header from '../components/Header';
+import Header from './Header';
 import NagationCategories from './NagationCategories';
-import Tasks from '../components/Tasks';
-import EditTask from '../components/EditTask';
-import ProgressBar from '../components/ProgressBar';
-import ConfirmOfDelete from '../components/ConfirmOfDelete'
+import Tasks from './Tasks';
+import EditTask from './EditTask';
+import ProgressBar from './ProgressBar';
+import ConfirmOfDelete from './ConfirmOfDelete'
 
 import '../styles/App.css';
 import '../styles/media.css';
@@ -16,22 +16,34 @@ import '../styles/media.css';
 
 class PrimaryLayout extends Component {
 	render() {
+		const { 
+			isDeleted,
+			tasks, 
+			categories, 
+			addTask,
+			editTask,
+			pushQuery, 
+			categoryWasDeleted, 
+			showDoneTasksChange,
+			taskDoneFieldChange, 
+			checkCategoryOnComplited,
+ 		} = this.props;
 		return (
 			<div className='primaryLayout'>
-				{this.props.isDeleted ? <ConfirmOfDelete close={this.props.categoryWasDeleted} /> : null}
-				<Header showDoneTasksChange={this.props.showDoneTasksChange} pushQuery={this.props.pushQuery} />
-				<ProgressBar categories={this.props.categories} />
+				{isDeleted ? <ConfirmOfDelete close={categoryWasDeleted} /> : null}
+				<Header showDoneTasksChange={showDoneTasksChange} pushQuery={pushQuery} />
+				<ProgressBar categories={categories} />
 				<NagationCategories />
 				<Switch>
 					<Route exact path="/category/:id"
 						render={ (props) => (
 							<Tasks 
 								{...props} 
-								tasks={this.props.tasks}	
-								addTask={this.props.addTask}	
-								taskDoneFieldChange={this.props.taskDoneFieldChange}
-								pushQuery={this.props.pushQuery}
-								checkCategoryOnComplited={this.props.checkCategoryOnComplited}
+								tasks={tasks}	
+								addTask={addTask}	
+								taskDoneFieldChange={taskDoneFieldChange}
+								pushQuery={pushQuery}
+								checkCategoryOnComplited={checkCategoryOnComplited}
 							/>
 						)}
 					/>
@@ -39,9 +51,9 @@ class PrimaryLayout extends Component {
 						render={ (props) => (
 							<EditTask 
 								{...props} 
-								tasks={this.props.tasks}	
-								editTask={this.props.editTask}	
-								checkCategoryOnComplited={this.props.checkCategoryOnComplited} 
+								tasks={tasks}	
+								editTask={editTask}	
+								checkCategoryOnComplited={checkCategoryOnComplited} 
 							/>
 						)}
 					/>

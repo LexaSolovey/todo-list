@@ -9,12 +9,12 @@ import createHistory from 'history/createBrowserHistory'
 
 import reducer from './reducers';
 
-import PrimaryLayout from './containers/PrimaryLayout';
+import PrimaryLayout from './components/PrimaryLayout';
 
 const history = createHistory();
 const middleware = routerMiddleware(history)
-// const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-const store = createStore(reducer, applyMiddleware(middleware));
+const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const store = createStore(reducer, compose(applyMiddleware(middleware), reduxDevTools));
 store.dispatch(push('/'));
 
 ReactDOM.render(

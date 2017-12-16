@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Icon } from "react-fa";
 import { push } from "react-router-redux";
 import queryString from "query-string";
+import classNames from 'classnames';
 
 import ToDoItem from "../components/ToDoItem";
 
@@ -15,38 +16,41 @@ class NagationCategories extends Component {
 			newCategory: '',
 			isOpened: false,
 		};
-    
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleNewCategoryNameChange = this.handleNewCategoryNameChange.bind(this);
+
 		this.toggleState = this.toggleState.bind(this);
 	}
 
-	handleSubmit(event) {
-		this.props.addCategory('', this.state.newCategory)
+	handleSubmit = (event) => {
+		const { newCategory } = this.state;
+		this.props.addCategory('', newCategory)
 		this.setState({newCategory: ''});
 		event.preventDefault();
 	}
 
-	handleNewCategoryNameChange(event) {
+	handleNewCategoryNameChange = (event) => {
 		this.setState({newCategory: event.target.value});
 	}
 
 	toggleState() {
-		this.setState({ isOpened: !this.state.isOpened });
+		const { isOpened } = this.state;
+		this.setState({ isOpened: !isOpened });
 	}
 
-	render() {  
+	render() {
+		const { categories, activeCategory, tasks } = this.props;
+		const { newCategory, isOpened } = this.state;
 		const { search } = this.props.routing.location;
 		const showDone = search !== '' ? queryString.parse(search).showDone : null;
-		const activeCategoryName = this.props.categories.find(({ id }) => id === this.props.activeCategory);
-		let classNameOfItem =  'hiddenItems';
-		if(this.state.isOpened) classNameOfItem = '';
-
-		const nestedCats = this.props.categories.map((category) => {
+		const activeCategoryName = categories.find(({ id }) => id === activeCategory);
+		const classNameOfItem = classNames({
+			'': true,
+			'hiddenItems': isOpened
+		});
+		const nestedCats = categories.map((category) => {
 			if(showDone === 'true' && category.parentId === '') {
 				return <li className={classNameOfItem} key={category.id}><ToDoItem {...this.props} toDoItemProps={category}/></li>;  
 			} else {
-				return chekOnVisibleCategory(this.props.categories, category.id, this.props.tasks) && category.parentId === ''
+				return chekOnVisibleCategory(categories, category.id, tasks) && category.parentId === ''
 					? <li className={classNameOfItem} key={category.id}><ToDoItem {...this.props} toDoItemProps={category}/></li>
 					: null;  
 			}
@@ -59,14 +63,14 @@ class NagationCategories extends Component {
 						type="text"
 						placeholder="Enter category title"
 						onChange={this.handleNewCategoryNameChange}
-						value={this.state.newCategory}
+						value={newCategory}
 					/>
 					<input type="submit" value="Add" onClick={this.handleSubmit} />
 				</form>
 				<div className="openList" onClick={this.toggleState}>
 					<div>
 						<p>{activeCategoryName ? activeCategoryName.name : 'Choose category'}</p>
-						{this.state.isOpened 
+						{isOpened 
 							? <Icon name="angle-up" size = "lg" /> 
 							: <Icon name="angle-down" size = "lg" /> }
 					</div>
@@ -84,7 +88,6 @@ const mapStateToProps = (state) => ({
 	tasks: state.listOfTasksToState.present,
 	routing: state.routing,
 	activeCategory: state.changeSelectedCategory,
-	modalWindowType: state.showModalWindow,
 });
 
 const mapDispatchToProps = () => (

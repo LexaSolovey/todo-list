@@ -6,7 +6,7 @@ export default function ConfirmOfDelete ({ close }) {
 	}
 	return (
 		<div className="modalWindow">
-			<div className="windowContent">
+			<div className="modalWindowContent">
 				<p>Massage</p>
 				<p>Category was deleted</p>
 				<button onClick={handleSubmit}>Good!</button>

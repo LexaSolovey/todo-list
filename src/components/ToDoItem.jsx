@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Icon } from 'react-fa';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
+import classNames from 'classnames';
 
 import ModalWindow from './ModalWindow';
 
@@ -17,58 +18,63 @@ class ToDoItem extends Component {
 		};
     
 		this.openCategory = this.openCategory.bind(this);
-		this.handleDeleteCategory = this.handleDeleteCategory.bind(this);
-		this.handleAddNestedCategory = this.handleAddNestedCategory.bind(this);
-		this.handleEditCategoryName = this.handleEditCategoryName.bind(this);
-		this.handleChangeCategoryOfTask = this.handleChangeCategoryOfTask.bind(this);
 		this.setCategory = this.setCategory.bind(this);
 		this.closeModalWindow = this.closeModalWindow.bind(this)
 	}
 
 	openCategory() {
-		if(Object.keys(this.props.categories.find(({ id }) => id === this.props.toDoItemProps.id).nestedCats.length !== 0)) {
-			this.setState({isOpened: !this.state.isOpened});
+		const { categories } = this.props;
+		const { isOpened } = this.state;
+		const { id } = this.props.toDoItemProps;
+		const haveNestedCats = categories.find(category => category.id === id).nestedCats.length !== 0;
+		if (haveNestedCats) {
+			this.setState({isOpened: !isOpened});
 		}
-		this.props.changeSelectedCategory(this.props.toDoItemProps.id);
+		this.props.changeSelectedCategory(id);
 	}
 
-	handleDeleteCategory(event) {
-		this.props.deleteCategory(this.props.toDoItemProps.id, this.props.toDoItemProps.parentId);
+	handleDeleteCategory = (event) => {
+		const { id, parentId } = this.props.toDoItemProps;
+		this.props.deleteCategory(id, parentId);
 		this.props.categoryWasDeleted(true);
 		event.stopPropagation();
 		event.preventDefault();
 	}
 
-	handleAddNestedCategory(event) {
+	handleAddNestedCategory = (event) => {
 		this.setState({modalWindowType: 'Add nested category'});
 		event.stopPropagation();
 		event.preventDefault();
 	}
 
-	handleEditCategoryName(event) {
+	handleEditCategoryName = (event) => {
 		this.setState({modalWindowType: 'Edit name of category'});
 		event.stopPropagation();
 		event.preventDefault();
 	}
 
-	handleChangeCategoryOfTask(event) {
-		const splitPath = this.props.routing.location.pathname.split('/');
+	handleChangeCategoryOfTask = (event) => {
+		const { pathname } = this.props.routing.location;
+		const { id } = this.props.toDoItemProps; 
+		const splitPath = pathname.split('/');
 		const taskId = splitPath[splitPath.length-1];
-		this.props.changeCategoryOfTask(taskId, this.props.toDoItemProps.id);
+		this.props.changeCategoryOfTask(taskId, id);
 		event.stopPropagation();
 		event.preventDefault();  
 	}
 
 	setCategory(newCategoryName) {
-		switch (this.state.modalWindowType) {
-			case 'Add nested category':
-				console.log(this.props.toDoItemProps.id, this.props.categories);
-				this.props.addCategory(this.props.toDoItemProps.id, newCategoryName);
-				break;
-			case 'Edit name of category':
-				this.props.editCategoryName(this.props.toDoItemProps.id, newCategoryName, this.props.toDoItemProps.parentId);
-				break;
-			default: break;
+		const { modalWindowType } = this.state;
+		const { id, parentId } = this.props.toDoItemProps;
+		const casesOfWindowType = {
+			add: 'Add nested category',
+			edit:'Edit name of category'
+		};
+		if (modalWindowType === casesOfWindowType.add) {
+			this.props.addCategory(id, newCategoryName);
+		}
+		if (modalWindowType === casesOfWindowType.edit) {
+			this.props.editCategoryName(id, newCategoryName, parentId);
 		}
 		this.setState({modalWindowType: false})
 	}
@@ -78,20 +84,27 @@ class ToDoItem extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if(nextProps.routing.location.query &&	this.props.routing.location !== nextProps.routing.location) {
-			nextProps.pushQuery(nextProps.routing.location.query);
+		const { location } = nextProps.routing;
+		if (location.query &&	this.props.routing.location !== location) {
+			nextProps.pushQuery(location.query);
 		}
 	}
 
 	render() {
-		const classNameOfItem = this.props.activeCategory === this.props.toDoItemProps.id ? 'category active' : 'category';
-		const { search } = this.props.routing.location;
+		const { activeCategory, toDoItemProps, categories, tasks } = this.props;
+		const { isOpened, modalWindowType } = this.state;
+		const { search, pathname } = this.props.routing.location;
 		const showDone = search !== '' ? queryString.parse(search).showDone : null;
-		const currentCategory = this.props.categories.find(({ id }) => id === this.props.toDoItemProps.id);
+		const checkCategoryOnActive = activeCategory !== toDoItemProps.id;
+		const currentCategory = categories.find(({ id }) => id === toDoItemProps.id);
+		const classNameOfItem = classNames({
+			'category': true,
+			'active': !checkCategoryOnActive
+		});
 		let nestedCats, buttonsOfItem, editButton;
 
-		if(this.props.routing.location.pathname.includes('/tasks/')) {
-			if(this.props.activeCategory !== this.props.toDoItemProps.id) {
+		if (pathname.includes('/tasks/')) {
+			if (checkCategoryOnActive) {
 				buttonsOfItem = 
 					<div className="rightBtn">
 						<Icon size = "lg" name="arrow-circle-o-left" onClick={this.handleChangeCategoryOfTask} />
@@ -109,12 +122,12 @@ class ToDoItem extends Component {
 				</div>;
 		}
 
-		if(this.state.isOpened) {
+		if(isOpened) {
 			nestedCats = currentCategory.nestedCats.map((nestedCat) => {
 				if(showDone === 'true') {
 					return <li key={nestedCat.id} className="Catigoties"><ToDoItem {...this.props} toDoItemProps={nestedCat} /></li>;
 				} else {
-					return chekOnVisibleCategory(this.props.categories, nestedCat.id, this.props.tasks)
+					return chekOnVisibleCategory(categories, nestedCat.id, tasks)
 						? <li key={nestedCat.id} className="Catigoties"><ToDoItem {...this.props} toDoItemProps={nestedCat} /></li>
 						: null;
 				}
@@ -123,20 +136,19 @@ class ToDoItem extends Component {
 
 		return (
 			<div className="toDoItem">
-				{this.state.modalWindowType 
+				{modalWindowType 
 					? <ModalWindow 
-						toDoItemProps={this.props.toDoItemProps}
 						setCategory={this.setCategory}
 						closeModalWindow={this.closeModalWindow}
-						type={this.state.modalWindowType} 
+						type={modalWindowType} 
 					/> 
 					: null}
 				<div className="currentItem">
-					<Link to={{pathname: `/category/${this.props.toDoItemProps.id}`, query: this.props.routing.location.search}} >
+					<Link to={{pathname: `/category/${toDoItemProps.id}`, query: search}} >
 						<div className={classNameOfItem}  onClick={this.openCategory}>
 							<div className="nameAndEdit">
 								<div>
-									<p>{this.props.toDoItemProps.name}</p>
+									<p>{toDoItemProps.name}</p>
 								</div>
 								{editButton}
 							</div>

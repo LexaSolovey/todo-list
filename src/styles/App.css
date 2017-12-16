@@ -82,9 +82,9 @@ header {
     -ms-border-radius: 5px;
     border-radius: 5px;
     display: inline-block;
-    border: 1px solid #faf8f6;
     user-select: none;
-    padding: 0.6%; }
+    padding: 0.6%;
+    border: 1px solid #faf8f6; }
 
 .progressBar {
   -webkit-border-radius: 7px;
@@ -308,16 +308,16 @@ main {
     width: 4.5em;
     margin-left: 5px;
     cursor: pointer; }
-  .modalWindow .windowContent {
+  .modalWindow .modalWindowContent {
     margin: 15% auto;
     padding: 0.1% 0;
     background-color: #00c8c8;
     text-align: center;
     width: 40%;
     height: 30%; }
-  .modalWindow .windowContent > * {
+  .modalWindow .modalWindowContent > * {
     margin-top: 5vh; }
-  .modalWindow .closeWindow {
+  .modalWindow .modalWindowClose {
     cursor: pointer; }
   .modalWindow p {
     user-select: none; }

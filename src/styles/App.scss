@@ -123,9 +123,9 @@ header {
   .checkboxShowDoneTasks {
     @include border-radius(5px);
     display: inline-block;
-    border: 1px solid $backgroundColor;
     user-select: none;
-		padding: 0.6%;
+    padding: 0.6%;
+    border: 1px solid $backgroundColor;
   }
 }
 .progressBar {
@@ -236,7 +236,7 @@ main {
   position:fixed;
   top:0;
   left:0;
-  .windowContent {
+  .modalWindowContent {
     margin: 15% auto;
     padding: 0.1% 0;
     background-color: $primaryColor;
@@ -244,10 +244,10 @@ main {
     width: 40%;
     height: 30%;
   }
-  .windowContent > * {
+  .modalWindowContent > * {
     margin-top: 5vh;
 	}
-	.closeWindow{
+	.modalWindowClose{
 		cursor: pointer;
 	}
   p{

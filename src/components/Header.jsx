@@ -11,36 +11,36 @@ class Header extends Component {
 			showDoneTasks: false,
 			redirect: false,
 		};
-
-		this.handleShowDoneTasksChange = this.handleShowDoneTasksChange.bind(this);
-		this.handleSearchLineChange = this.handleSearchLineChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
 		this.clearSearchLine = this.clearSearchLine.bind(this);
 	}
 
-	handleSubmit(event) {
-		const searchLine = queryString.stringify({filter : this.state.searchLine, showDone: this.state.showDoneTasks});
-		this.props.pushQuery(searchLine);
+	handleSubmit = (event) => {
+		const { searchLine, showDoneTasks } = this.state;
+		const searchLineToChange = queryString.stringify({filter : searchLine, showDone: showDoneTasks});
+		this.props.pushQuery(searchLineToChange);
 		event.preventDefault();
 	}
 
-	handleShowDoneTasksChange(){
-		this.setState({showDoneTasks: !this.state.showDoneTasks});
-		const checkboxChange = queryString.stringify({filter : this.state.searchLine, showDone: !this.state.showDoneTasks});
+	handleShowDoneTasksChange = () => {
+		const { searchLine, showDoneTasks } = this.state;
+		this.setState({showDoneTasks: !showDoneTasks});
+		const checkboxChange = queryString.stringify({filter : searchLine, showDone: !showDoneTasks});
 		this.props.pushQuery(checkboxChange);
 	}
 
-	handleSearchLineChange(event) {
+	handleSearchLineChange = (event) => {
 		this.setState({searchLine: event.target.value});
 	}
 
 	clearSearchLine() {
+		const { showDoneTasks } = this.state;
 		this.setState({searchLine: ''});
-		const searchLine = queryString.stringify({filter : '', showDone: this.state.showDoneTasks});
+		const searchLine = queryString.stringify({filter : '', showDone: showDoneTasks});
 		this.props.pushQuery(searchLine);
 	}
 
 	render() {
+		const { searchLine } = this.state;
 		return (
 			<header >
 				<Link to="/">
@@ -60,10 +60,9 @@ class Header extends Component {
 						<input 
 							type="text"
 							placeholder="Search"
-							value={this.state.searchLine}
+							value={searchLine}
 							onChange={this.handleSearchLineChange}
-							onFocus={this.onFocusInput}
-							onBlur={this.onBlurInput} />
+						/>
 						<Icon size = "lg" name="times" onClick={this.clearSearchLine} />
 					</form>
 				</div>

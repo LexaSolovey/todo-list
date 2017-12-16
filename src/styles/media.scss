@@ -34,10 +34,11 @@
   .editTask form > * {
     margin: 2% 0;
   }  
-  .modalWindow .windowContent > * {
+  .modalWindow .modalWindowContent > * {
     margin-top: 4%;
   }
 }
+
 @media (max-height: 767px) and (max-width: 415px) {
   ul .hiddenItems {
     display: none;
@@ -79,7 +80,7 @@
 			margin-left: 10%;
 		}
   }
-  .modalWindow .windowContent{
+  .modalWindow .modalWindowContent{
     width: 80%;
 	}
 }
