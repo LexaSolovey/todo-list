@@ -31,8 +31,7 @@ class EditTask extends Component {
 	}
 
 	handleTaskDone = () => {
-		const { taskIsDone } = this.state;
-		this.setState({taskIsDone: !taskIsDone});
+		this.setState({taskIsDone: !this.state.taskIsDone});
 	}
 
 	cancel() {
@@ -49,7 +48,7 @@ class EditTask extends Component {
 			<section className="editTask">
 				<form onSubmit={this.handleSubmit}>
 					<div>
-						<input type="button" value="Cancel" onClick={this.handleCancel} />
+						<input type="button" value="Cancel" onClick={this.cancel} />
 						<input type="button" value="Save Changes" onClick={this.handleSubmit} />
 					</div>
 					<div>

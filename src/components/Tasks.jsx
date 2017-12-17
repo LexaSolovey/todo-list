@@ -30,9 +30,7 @@ class Tasks extends Component {
 	}
 
 	taskIsDone(id){
-		const { tasks } = this.props;
 		this.props.taskDoneFieldChange(id);
-		this.props.checkCategoryOnComplited(tasks, id);
 	}
 
 	toggleState(){
@@ -41,8 +39,13 @@ class Tasks extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (this.props.tasks.length < nextProps.tasks.length){
-			this.props.checkCategoryOnComplited(nextProps.tasks, nextProps.tasks[0].id);
+		if (this.props.tasks !== nextProps.tasks) {
+			if (this.props.tasks.length !== nextProps.tasks.length) {
+				this.props.checkCategoryOnComplited(nextProps.tasks, nextProps.tasks[0].id);
+			} else {
+				const chengedTaskId = this.props.tasks.filter(task => task !== nextProps.tasks.find(({ id }) => id === task.id))[0].id;
+				this.props.checkCategoryOnComplited(nextProps.tasks, chengedTaskId);
+			}
 		}
 	}
 
@@ -59,7 +62,6 @@ class Tasks extends Component {
 			'taskItem': isOpened
 		});
 		let items;
-
 		if (tasks.length !== 0) {
 			items = tasks.map((task) => (
 				<li key={task.id} className={classNameOfItem}>
@@ -75,7 +77,6 @@ class Tasks extends Component {
 				</li>
 			));
 		}
-
 		return (
 			<main>
 				<form onSubmit={this.handleSubmit}>

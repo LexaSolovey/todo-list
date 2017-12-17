@@ -71,7 +71,7 @@ class ToDoItem extends Component {
 			edit:'Edit name of category'
 		};
 		if (modalWindowType === casesOfWindowType.add) {
-			this.props.addCategory(id, newCategoryName);
+			this.props.addCategory(newCategoryName, id);
 		}
 		if (modalWindowType === casesOfWindowType.edit) {
 			this.props.editCategoryName(id, newCategoryName, parentId);

@@ -1,3 +1,4 @@
+import * as actions from '../actions/tasksActions';
 import undoable from 'redux-undo';
 import uniqueKey from '../utils/uniqueKey';
 import { idToCategoty1 } from './listOfCategoriesToState';
@@ -33,36 +34,35 @@ const initialState = [
 		done: true,
 	},
 ];
-const createNewTask = (parentId, name) => {
-	const nameOfTask = name === '' ? 'NoName' : name;
-	return {
-		id: uniqueKey(),
-		parentId: parentId,
-		name: nameOfTask,
-		description: '',
-		done: false,
-	};
-};
+
 const listOfTasksToState = (state = initialState, action) => {
 	switch (action.type) {
-		case 'ADD_NEW_TASK':
-			return [createNewTask(action.parentId, action.payload), ...state];
-		case 'TASK_DONE_FIELD_CHANGE':
-			state.find(({ id }) => id === action.payload).done = !state.find(({ id }) => id === action.payload).done;
-			return [...state];
-		case 'EDIT_CURRENT_TASK':
-			const currentTask = state.find(({ id }) => id === action.taskId);
-			currentTask.name = action.payload;
-			currentTask.description = action.description;
-			currentTask.done = action.isDone;
-			return [...state];
-		case 'CHANGE_CATEGORY_OF_TASK':
-			state.find(({ id }) => id === action.taskId).parentId = action.payload;
-			return [...state];
-		default: return state;
+		case actions.ADD_NEW_TASK:
+			return [action.payload, ...state];
+		case actions.TASK_DONE_FIELD_CHANGE:
+			return state.map((task) => (
+				task.id === action.payload
+					? Object.assign({}, task, {done: !task.done})
+					: task
+			));
+		case actions.EDIT_CURRENT_TASK:
+			return state.map((task) => (
+				task.id === action.taskId
+					? Object.assign({}, task, {name: action.taskName, description: action.description , done: action.isDone})
+					: task
+			));
+		case actions.CHANGE_CATEGORY_OF_TASK:
+		return state.map((task) => (
+			task.id === action.taskId
+				? Object.assign({}, task, {parentId: action.selectedCategory})
+				: task
+		));
+		default:
+			return state;
 	}
 };
+
 const undoableTodos = undoable(listOfTasksToState, {
-	filter: action => action.type === 'ADD_NEW_TASK'
+	filter: action => action.type === actions.ADD_NEW_TASK
 });
 export default undoableTodos;

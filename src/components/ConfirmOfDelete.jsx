@@ -1,9 +1,10 @@
 import React from "react";
 
 export default function ConfirmOfDelete ({ close }) {
-	function handleSubmit() {
+	const handleSubmit = () => {
 		close(false);
-	}
+	};
+	
 	return (
 		<div className="modalWindow">
 			<div className="modalWindowContent">

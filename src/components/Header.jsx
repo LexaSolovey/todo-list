@@ -38,9 +38,10 @@ class Header extends Component {
 		const searchLine = queryString.stringify({filter : '', showDone: showDoneTasks});
 		this.props.pushQuery(searchLine);
 	}
-
+	
 	render() {
 		const { searchLine } = this.state;
+		const { showDoneTasks } = this.props;
 		return (
 			<header >
 				<Link to="/">
@@ -51,7 +52,7 @@ class Header extends Component {
 						<input 
 							type="checkbox" 
 							id="showDoneTasks"
-							defaultChecked={this.props.showDoneTasks} 
+							defaultChecked={showDoneTasks} 
 							onChange={this.handleShowDoneTasksChange} 
 						/>
 						<label htmlFor="showDoneTasks">Show done</label>

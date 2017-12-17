@@ -24,22 +24,22 @@ $tasksColor: #25608c;
     color: $color;
   }
 }
-@mixin inputStyles($bckColor) {
+@mixin inputStyles($bckColor, $textColor) {
   @include border-radius(5px);
   display: inline-block;
   background-color: $bckColor;
-  color: $backgroundColor;
+  color: $textColor;
   padding: 10px 8px;
   width: 10em;
   border: none;
 }
-@mixin inputForm($bckColor) {
+@mixin inputForm($bckColor, $textColor) {
   input[type="text"] {
-		@include inputStyles($bckColor);
+		@include inputStyles($bckColor, $textColor);
 		border: none;
   }
   input[type="submit"] {
-    @include inputStyles($bckColor);
+    @include inputStyles($bckColor, $textColor);
     width: 4.5em;
 		margin-left: 5px;
 		cursor: pointer;
@@ -110,7 +110,7 @@ header {
   }
   .searchForm {
 		@include border-radius(5px);
-		@include inputForm($backgroundColor);
+		@include inputForm($backgroundColor, black);
     display: inline-block;
     background-color: $backgroundColor;
     color: $primaryColor;
@@ -146,7 +146,7 @@ aside {
   height: 67vh;
   padding: 1%;
   .addCategory {
-    @include inputForm($primaryColor);
+    @include inputForm($primaryColor, $backgroundColor);
   }
   li {
     background-color: $primaryColor;
@@ -196,7 +196,7 @@ aside {
 
 main {
   @include colorOfPlaceholder($backgroundColor);
-  @include inputForm($tasksColor);
+  @include inputForm($tasksColor, $backgroundColor);
   @include ulStyle ($tasksColor);
   float: right;
   width: 600px / 960px * 100%;
@@ -221,15 +221,15 @@ main {
     margin: 0 0 5% 5%;
   }
   button {
-		@include inputStyles($tasksColor);
+		@include inputStyles($tasksColor, $backgroundColor);
   }
   button:disabled {
-    @include inputStyles(gray);
+    @include inputStyles(gray, $backgroundColor);
   }
 }
 
 .modalWindow {
-  @include inputForm($tasksColor);
+  @include inputForm($tasksColor, $backgroundColor);
   width:100%;
   height: 100%;
   background-color: rgba(0,0,0,0.7);
@@ -254,7 +254,7 @@ main {
     user-select: none;
 	}
 	button {
-    @include inputStyles($tasksColor);
+    @include inputStyles($tasksColor, $backgroundColor);
   }
 }
 
@@ -272,12 +272,12 @@ main {
     flex-direction: column;
 
     input[type="button"] {
-      @include inputStyles($tasksColor);
+      @include inputStyles($tasksColor, $backgroundColor);
       margin-left: 5px;
       float: right;
     }
     input[type="text"] {
-      @include inputStyles($primaryColor);
+      @include inputStyles($primaryColor, $backgroundColor);
     }
     textarea[name="description"] {  
       flex: 7;

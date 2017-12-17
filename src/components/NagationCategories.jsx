@@ -7,6 +7,8 @@ import classNames from 'classnames';
 
 import ToDoItem from "../components/ToDoItem";
 
+import { addCategory, deleteCategory, editCategoryName } from '../actions/categoriesActions';
+import { changeCategoryOfTask } from '../actions/tasksActions';
 import chekOnVisibleCategory from "../utils/chekOnVisibleCategory";
 
 class NagationCategories extends Component {
@@ -21,8 +23,7 @@ class NagationCategories extends Component {
 	}
 
 	handleSubmit = (event) => {
-		const { newCategory } = this.state;
-		this.props.addCategory('', newCategory)
+		this.props.addCategory(this.state.newCategory, '');
 		this.setState({newCategory: ''});
 		event.preventDefault();
 	}
@@ -32,8 +33,7 @@ class NagationCategories extends Component {
 	}
 
 	toggleState() {
-		const { isOpened } = this.state;
-		this.setState({ isOpened: !isOpened });
+		this.setState({ isOpened: !this.state.isOpened });
 	}
 
 	render() {
@@ -92,17 +92,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = () => (
 	dispatch => ({
-		deleteCategory: (categoryIdToDelete, parentId) => dispatch({type: 'DELETE_CATEGORY', payload: categoryIdToDelete, parentId: parentId}),
+		deleteCategory: (categoryIdToDelete, parentId) => dispatch(deleteCategory(categoryIdToDelete, parentId)),
 		changeSelectedCategory: categoryId => dispatch({type: 'CHANGE_SELECTED_CATEGORY', payload: categoryId}),
 		categoryWasDeleted: isDeleted => dispatch({type: 'CATEGORY_WAS_DELETED', payload: isDeleted}),
 		showModalWindow: isOpened => dispatch({type: 'SHOW_MODAL_WINDOW', payload: isOpened}),
 		pushQuery: query => dispatch(push({search: query})),
-		addCategory: (parentId, categoryName) => 
-			dispatch({type: 'ADD_CATEGORY', payload: categoryName, parentId: parentId}),
-		editCategoryName: (categoryId, newCategoryName, parentId) => 
-			dispatch({type: 'EDIT_CATEGORY_NAME', payload: newCategoryName, categoryId: categoryId, parentId: parentId}),
-		changeCategoryOfTask: (taskId, selectedCategory) =>
-			dispatch({type: 'CHANGE_CATEGORY_OF_TASK', payload: selectedCategory, taskId: taskId}),
+		addCategory: (categoryName, parentId) => dispatch(addCategory(categoryName, parentId)),
+		editCategoryName: (categoryId, newCategoryName, parentId) => dispatch(editCategoryName(newCategoryName, categoryId, parentId)),
+		changeCategoryOfTask: (taskId, selectedCategory) => dispatch(changeCategoryOfTask(taskId, selectedCategory))
 	})
 );
 export default connect(mapStateToProps, mapDispatchToProps)(NagationCategories);

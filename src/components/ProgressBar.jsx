@@ -6,9 +6,9 @@ function ProgressBar({ categories }) {
 	const completedCategories = categories.filter(({ done }) => !!done).length;
 	const percent = completedCategories / countOfCategories * 100;
 	return (
-		<div className="progressBar">
+		<section className="progressBar">
 			<Progress completed={percent} />
-		</div>
+		</section>
 	);
 }
 

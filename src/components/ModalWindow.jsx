@@ -6,22 +6,19 @@ class ModalWindow extends Component {
 		this.state = {
 			newCategory: '',
 		};
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleNewCategoryChange = this.handleNewCategoryChange.bind(this);
-		this.handleCloseModalWindow = this.handleCloseModalWindow.bind(this);
 	}
 
-	handleSubmit(event) {
+	handleSubmit = (event) => {
 		this.props.setCategory(this.state.newCategory);
 		this.setState({newCategory: ''});
 		event.preventDefault();
 	}
 
-	handleNewCategoryChange(event){
+	handleNewCategoryChange = (event) => {
 		this.setState({newCategory: event.target.value});
 	}
 
-	handleCloseModalWindow() {
+	handleCloseModalWindow = () => {
 		this.props.closeModalWindow();
 	}
 

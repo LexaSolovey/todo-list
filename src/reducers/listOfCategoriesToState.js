@@ -1,4 +1,5 @@
 import uniqueKey from '../utils/uniqueKey';
+import * as actions from '../actions/categoriesActions';
 
 export const idToCategoty1 = uniqueKey();
 export const idToCategoty2 = uniqueKey();
@@ -85,48 +86,71 @@ const initialState = [
 		nestedCats: [],
 	},
 ];
-const createCategory = (categoryId, name, isNested) => {
-	const nameOfCategory = name === '' ? 'NoName' : name;
-	return {
-		id: categoryId + uniqueKey(isNested),
-		parentId: categoryId,
-		name: nameOfCategory,
-		description: '',
-		done: true,
-		nestedCats: [],
-	};
-};
 
 export function listOfCategoriesToState(state = initialState, action) {
 	switch (action.type) {
-		case 'DELETE_CATEGORY':
+		case actions.DELETE_CATEGORY:
 			if (action.parentId !== '') {
-				const indexItemToDelete = state.find(({ id }) => id === action.parentId).nestedCats.findIndex(({ id }) => id === action.payload);
-				state.find(({ id }) => id === action.parentId).nestedCats.splice(indexItemToDelete, 1);
+				const newState = state.map((category) => (
+					category.id === action.parentId
+						? Object.assign({}, category, {nestedCats: category.nestedCats.filter(({ id }) => id !== action.categoryIdToDelete)})
+						: category
+				));
+				return [...newState.filter(({ id }) => !id.includes(action.categoryIdToDelete))];
 			}
-			return [...state.filter(({ id }) => !id.includes(action.payload))];
+			return [...state.filter(({ id }) => !id.includes(action.categoryIdToDelete))];
 		case 'ADD_CATEGORY':
-			if(action.parentId === '') {
-				return [createCategory('', action.payload, false), ...state];
-			} else {
-				const nestedCategory = createCategory(action.parentId, action.payload, true);
-				state.find(({ id }) => id === action.parentId).nestedCats.splice(0, 0, nestedCategory);
-				return [...state, nestedCategory];
+			if(action.parentId !== '') {
+				const newState = state.map((category) => (
+					category.id === action.parentId
+						? Object.assign({}, category, {nestedCats: [action.payload, ...category.nestedCats]})
+						: category
+				));
+				return [
+					...newState,
+					action.payload
+				];
+			} 
+			return [action.payload, ...state];
+		case actions.EDIT_CATEGORY_NAME:
+			const nameOfCategory = action.newCategoryName === '' ? 'NoName' : action.newCategoryName;
+			if (action.parentId !== '') {
+				const newState = state.map((category) => {
+					if (category.id === action.parentId) {
+						return Object.assign({}, category, {
+							nestedCats: category.nestedCats.map((nestedCat) => (
+									nestedCat.id === action.categoryId
+										? Object.assign({}, nestedCat, {name: nameOfCategory})
+										: nestedCat
+								))
+						})
+					} else return category;
+				});
+				return [...newState];
 			}
-		case 'EDIT_CATEGORY_NAME':
-			const nameOfCategory = action.payload === '' ? 'NoName' : action.payload;
-			if (action.parentId) {
-				const indexItemToDelete = state.find(({ id }) => id === action.parentId).nestedCats.findIndex(({ id }) => id === action.categoryId);
-				state.find(({ id }) => id === action.parentId).nestedCats[indexItemToDelete].name = nameOfCategory;
-			}
-			state.find(({ id }) => id === action.categoryId).name = nameOfCategory;
-			return [...state];
-		case 'CHECK_ON_COMPLITED':
-			const currentTask = action.tasks.find(({ id }) => id === action.payload);
+			return state.map((category) => (
+				category.id === action.categoryId
+					? Object.assign({}, category, {name: nameOfCategory})
+					: category
+			));
+		case actions.CHECK_ON_COMPLITED:
+			const currentTask = action.tasks.find(({ id }) => id === action.taskId);
 			const allTaskInCatComplited = action.tasks.filter(({ parentId }) => parentId === currentTask.parentId).every(({ done }) => !!done);
-			if(allTaskInCatComplited) state.find(({ id }) => id === currentTask.parentId).done = true;
-			if(!allTaskInCatComplited) state.find(({ id }) => id === currentTask.parentId).done = false;
-			return[...state]
+			if (allTaskInCatComplited) {
+				return state.map((category) => (
+					category.id === currentTask.parentId
+						? Object.assign({}, category, {done: true})
+						: category
+				));
+			} 
+			if (!allTaskInCatComplited) {
+				return state.map((category) => (
+					category.id === currentTask.parentId
+						? Object.assign({}, category, {done: false})
+						: category
+				));
+			}
+			break;
 		default: return state;
 	}
 }
